@@ -25,13 +25,8 @@
 )
 
 ;Test cases
-;1) (-1 2 -3 4) -> ((2 4) (-1 -3))
 (print (split '(-1 2 -3 4)))
-
-;2) (-1 2 -3 4) -> ((0 0 5) (-1)) 
 (print (split '(0 0 -1 5)))
-
-;3) () -> (NIL NIL)
 (print (split '()))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -64,13 +59,8 @@
 )
 
 ;Test cases;
-;1) (1 3) (2 2) -> 8
 (print (scalar '(1 3) '(2 2)))
-
-;2) (-1 -3) (0 2) -> -6
 (print (scalar '(-1 -3) '(0 2)))
-
-;3) () () -> 0
 (print (scalar NIL NIL))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -78,7 +68,6 @@
 ;Description
 ;#21
 ;Удалить из списка первое вхождение данного элемента на верхнем уровне.
-
 
 ;Code
 (defun delete-element (lst element)
@@ -90,14 +79,14 @@
 			(cdr lst)
 		)
 		(t
-			(cons car(lst) (delete-element (cdr lst) element))
+			(cons (car lst) (delete-element (cdr lst) element))
 		)
 	)
 )
 
 ;Test cases
-;1) ((1 2 3) 3) ->  (1 2)
 (print (delete-element (1 2 3) 3))
+(print (delete-element '(1 2 3 5 3 4) 3))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -118,13 +107,8 @@
 )
 
 ;Test cases
-;1) (1 2 3 4 5) -> (1 3 5)
-(print (delete-even '(1 2 3 4 5)))
-
-;2) (-1 0 -2 5 7 9 11 0 -3 3454 -4646) -> (-1 -2 7 11 -3 -4646) 
+(print (delete-even '(1 2 3 4 5))) 
 (print (delete-even '(-1 0 -2 5 7 9 11 0 -3 3454 -4646)))
-
-;3) nil -> nil
 (print (delete-even NIL))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -134,9 +118,23 @@
 ;Вычислить, сколько всего атомов в списке (списочной структуре)
 
 ;Code
-
+(defun count-atoms (lst)
+	(cond
+		((null lst)
+			0
+		)
+		((atom (car lst))
+			(+ 1 (count-atoms (cdr lst)))
+		)
+		(t
+			(+ (count-atoms (car lst)) (count-atoms (cdr lst)))
+		)		
+	)
+)
 
 ;Test cases
+(print (count-atoms '(1 2 3))
+(print (count-atoms '(1 (2 3 5) ((4 3) 1))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -146,8 +144,38 @@
 ;множеством, т.е. входит ли каждый элемент в список лишь один раз.
 
 ;Code
+(defun find-in-list (lst element)
+	(cond
+		((null lst)
+			nil
+		)
+		((= (car lst) element)
+			t
+		)
+		(t
+			(find-in-list (cdr lst) element)
+		)
+	)
+)
 
+(defun is-set (lst)
+	(cond
+		((null lst)
+			t
+		)
+		((find-in-list (cdr lst) (car lst))
+			nil
+		)
+		(t
+			(is-set (cdr lst))
+		)
+	)
+)
 ;Test cases
+(print (is-set '(1 2 2 3 4)))
+(print (is-set '(1 2 3 4)))
+(print (is-set '(1 2 2 0 3 4 4)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -156,8 +184,21 @@
 ;Найти максимальное из значений, находящихся в вершинах дерева.
 
 ;Code
+(defun tree-max (tree)
+	(cond
+		((null (cdr tree))
+			(car tree)
+		)
+		(t
+			(max (car tree) (tree-max (cadr tree)) (tree-max(caddr tree)))
+		)		
+	)
+)
 
 ;Test cases
+(print (tree-max '(1 (4) (5))))
+(print (tree-max '(1 (4 (1) (7)) (5))))
+(print (tree-max '(1 (4 (1) (7)) (5 (14) (1)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -168,8 +209,34 @@
 ;Напишите функцию (РАССТОЯНИЕ a b), вычисляющую расстояние между городами а и b.
 
 ;Code
+(defun dist (city1 city2)
+	(sqrt
+		(+
+			(* 
+				(- (get city1 'x) (get city2 'x))
+				(- (get city1 'x) (get city2 'x))
+			)
+			(*
+				(- (get city1 'y) (get city2 'y))
+				(- (get city1 'y) (get city2 'y))
+			)
+		)
+	)
+)
+
+(defun make-city (name x y)
+    (setf (get name 'x) x)
+    (setf (get name 'y) y)
+)
 
 ;Test cases
+(make-city 'city1 0 3)
+(make-city 'city2 4 0)
+(print (dist 'city1 'city2))
+
+(make-city 'city1 1 3)
+(make-city 'city2 1 9)
+(print (dist 'city1 'city2))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -180,7 +247,24 @@
 ;и предикат (СЕСТРЫ-БРАТЬЯ x1 x2), который истинен в случае,
 ;если x1 и x2 — сестры или братья, родные или с одним общим родителем.
 
-
 ;Code
+;NOT READY
+(defun make-child (name mother father)
+    (setf (get name 'mother) mother)
+    (setf (get name 'father) father)
+)
+
+(defun parents (child)
+	(cons (get child 'father) (get child 'mother))
+)
+
+(defun brother-or-sister (x y)
+	((lambda (child1 child2)
+        (or
+            (string-equal (car child1) (car child2))
+            (string-equal (cadr child1) (cadr child2))
+        )
+    ) (parents x) (parents y))	
+)
 
 ;Test cases
