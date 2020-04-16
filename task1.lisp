@@ -1,4 +1,52 @@
 ;Description
+;#46
+;Предположим, что отец и мать некоторого лица, хранятся как значения соответствующих свойств у символа, обозначающего это лицо.
+;Напишите функцию (РОДИТЕЛИ x), которая возвращает в качестве значения родителей,
+;и предикат (СЕСТРЫ-БРАТЬЯ x1 x2), который истинен в случае,
+;если x1 и x2 — сестры или братья, родные или с одним общим родителем.
+
+;Code
+(defun make-child (name mother father)
+    (setf (get name 'mother) mother)
+    (setf (get name 'father) father)
+)
+
+(defun mother-and-father (child)
+	(cons 
+         (get child 'mother) 
+         (cons
+              (get child 'father)
+              nil
+         )
+    )
+)
+
+(defun brother-or-sister (x y)
+	((lambda (child1 child2)
+        (or
+            (string-equal (car child1) (car child2))
+            (string-equal (cadr child1) (cadr child2))
+        )
+    ) (mother-and-father x) (mother-and-father y))	
+)
+
+(make-child 'CH1 'A 'B)
+(make-child 'CH2 'A 'B)
+(make-child 'CH3 'A 'C)
+(make-child 'CH4 'B 'D)
+
+;Test cases
+(print (brother-or-sister 'CH1 'CH2))
+(print (brother-or-sister 'CH2 'CH3))
+(print (brother-or-sister 'CH1 'CH3))
+(print (brother-or-sister 'CH1 'CH4))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;Проверено;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;Description
 ;#13
 ;Удалить из исходного списка все повторные вхождения элементов
 
@@ -94,56 +142,6 @@
 ;Test cases
 (print (count-atoms '(1 2 3)))
 (print (count-atoms '(1 (2 3 5) ((4 3) 1))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;Description
-;#46
-;Предположим, что отец и мать некоторого лица, хранятся как значения соответствующих свойств у символа, обозначающего это лицо.
-;Напишите функцию (РОДИТЕЛИ x), которая возвращает в качестве значения родителей,
-;и предикат (СЕСТРЫ-БРАТЬЯ x1 x2), который истинен в случае,
-;если x1 и x2 — сестры или братья, родные или с одним общим родителем.
-
-;Code
-(defun make-child (name mother father)
-    (setf (get name 'mother) mother)
-    (setf (get name 'father) father)
-)
-
-(defun parents (child)
-	(cons 
-         (get child 'father) 
-         (cons
-              (get child 'mother)
-              nil
-         )
-    )
-)
-
-(defun brother-or-sister (x y)
-	((lambda (child1 child2)
-        (or
-            (string-equal (car child1) (car child2))
-            (string-equal (cadr child1) (cadr child2))
-        )
-    ) (parents x) (parents y))	
-)
-
-(make-child 'CH1 'A 'B)
-(make-child 'CH2 'A 'B)
-(make-child 'CH3 'A 'C)
-(make-child 'CH4 'B 'D)
-
-;Test cases
-(print (brother-or-sister 'CH1 'CH2))
-(print (brother-or-sister 'CH2 'CH3))
-(print (brother-or-sister 'CH1 'CH3))
-(print (brother-or-sister 'CH1 'CH4))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;Проверено;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
