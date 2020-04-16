@@ -11,23 +11,21 @@
     (setf (get name 'father) father)
 )
 
-(defun mother-and-father (child)
-	(cons 
-         (get child 'mother) 
-         (cons
-              (get child 'father)
-              nil
-         )
-    )
+(defun mother (child)
+    (get child 'father)
+)
+
+(defun father (child)
+    (get child 'mother)
 )
 
 (defun brother-or-sister (x y)
-	((lambda (child1 child2)
+	((lambda (child1-mother child1-father child2-mother child2-father)
         (or
-            (string-equal (car child1) (car child2))
-            (string-equal (cadr child1) (cadr child2))
+            (string-equal child1-mother child2-mother)
+            (string-equal child1-father child2-father)
         )
-    ) (mother-and-father x) (mother-and-father y))	
+    ) (mother x) (father x) (mother y) (father y))	
 )
 
 (make-child 'CH1 'A 'B)
