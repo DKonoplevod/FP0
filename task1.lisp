@@ -1,50 +1,4 @@
 ;Description
-;#46
-;Предположим, что отец и мать некоторого лица, хранятся как значения соответствующих свойств у символа, обозначающего это лицо.
-;Напишите функцию (РОДИТЕЛИ x), которая возвращает в качестве значения родителей,
-;и предикат (СЕСТРЫ-БРАТЬЯ x1 x2), который истинен в случае,
-;если x1 и x2 — сестры или братья, родные или с одним общим родителем.
-
-;Code
-(defun make-child (name mother father)
-    (setf (get name 'mother) mother)
-    (setf (get name 'father) father)
-)
-
-(defun mother (child)
-    (get child 'father)
-)
-
-(defun father (child)
-    (get child 'mother)
-)
-
-(defun brother-or-sister (x y)
-	((lambda (child1-mother child1-father child2-mother child2-father)
-        (or
-            (string-equal child1-mother child2-mother)
-            (string-equal child1-father child2-father)
-        )
-    ) (mother x) (father x) (mother y) (father y))	
-)
-
-(make-child 'CH1 'A 'B)
-(make-child 'CH2 'A 'B)
-(make-child 'CH3 'A 'C)
-(make-child 'CH4 'B 'D)
-
-;Test cases
-(print (brother-or-sister 'CH1 'CH2))
-(print (brother-or-sister 'CH2 'CH3))
-(print (brother-or-sister 'CH1 'CH3))
-(print (brother-or-sister 'CH1 'CH4))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;Проверено;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;Description
 ;#13
 ;Удалить из исходного списка все повторные вхождения элементов
 
@@ -85,6 +39,53 @@
 ;Test cases
 (print (remove-all-duplicates '(1 2 3 3 2)))
 (print (remove-all-duplicates '(1 2 4 4 3 3 4 4 2)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;Проверено;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;Description
+;#46
+;Предположим, что отец и мать некоторого лица, хранятся как значения соответствующих свойств у символа, обозначающего это лицо.
+;Напишите функцию (РОДИТЕЛИ x), которая возвращает в качестве значения родителей,
+;и предикат (СЕСТРЫ-БРАТЬЯ x1 x2), который истинен в случае,
+;если x1 и x2 — сестры или братья, родные или с одним общим родителем.
+
+;Code
+(defun make-child (name mother father)
+    (setf (get name 'mother) mother)
+    (setf (get name 'father) father)
+)
+
+(defun mother (child)
+    (get child 'father)
+)
+
+(defun father (child)
+    (get child 'mother)
+)
+
+(defun brother-or-sister (x y)
+	((lambda (child1-mother child1-father child2-mother child2-father)
+        (or
+            (string-equal child1-mother child2-mother)
+            (string-equal child1-father child2-father)
+        )
+    ) (mother x) (father x) (mother y) (father y))	
+)
+
+(make-child 'CH1 'A 'B)
+(make-child 'CH2 'A 'B)
+(make-child 'CH3 'A 'C)
+(make-child 'CH4 'B 'D)
+
+;Test cases
+(print (brother-or-sister 'CH1 'CH2))
+(print (brother-or-sister 'CH2 'CH3))
+(print (brother-or-sister 'CH1 'CH3))
+(print (brother-or-sister 'CH1 'CH4))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
