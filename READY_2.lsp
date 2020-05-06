@@ -95,6 +95,23 @@
 (print (funcall gen1))
 (print (funcall gen1))
 
+(write-line "")
+
+(setq gen1 (gen-nat))
+(setq gen2 (gen-nat))
+(print (funcall gen1))
+(print (funcall gen1))
+(print (funcall gen1))
+(print (funcall gen2))
+(print (funcall gen2))
+(print (funcall gen2))
+(print (funcall gen2))
+(print (funcall gen2))
+(print (funcall gen2))
+(print (funcall gen1))
+(print (funcall gen1))
+(print (funcall gen1))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;Description
@@ -123,6 +140,17 @@
 (print (funcall gen1))
 (print (funcall gen1))
 (print (funcall gen1))
+(print (funcall gen1))
+
+(write-line "")
+
+(setq gen1 (gen-ab-str))
+(setq gen2 (gen-ab-str))
+(print (funcall gen1))
+(print (funcall gen1))
+(print (funcall gen2))
+(print (funcall gen2))
+(print (funcall gen2))
 (print (funcall gen1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
