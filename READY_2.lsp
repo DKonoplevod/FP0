@@ -77,13 +77,13 @@
 
 ;Code
 (defun gen-nat ()
-	(let ((c -1))
-		(lambda ()
-			(setq
-				c (+ c 1)
+    (let ((c -1))
+        (lambda ()
+            (setq
+                c (+ c 1)
             )
         )
-	)
+    )
 )
 
 ;Test cases
@@ -121,17 +121,17 @@
 
 ;Code
 (defun gen-ab-str ()
-	(let ((s1 'A) (s2 'B) (s nil))
-		(lambda ()
-			(setq
-				s 
+    (let ((s1 'A) (s2 'B) (s nil))
+        (lambda ()
+            (setq
+                s 
                 (cond 
                     ((eq s1 (car s)) (cons s2 s))
                     (t (cons s1 s))
                 )
             )
         )
-	)
+    )
 )
 
 ;Test cases
@@ -167,5 +167,20 @@
 ;Test cases
 (print (return-call))
 (print (funcall (funcall (return-call))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;Description
+;#14
+;Определите функцию, которая возвращает в качестве значения
+;форму своего определения (DEFUN).
+
+;Code
+(defun return-defun ()
+   '(defun return-defun ())
+)
+
+;Test cases
+(print (return-defun))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

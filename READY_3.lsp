@@ -43,15 +43,15 @@
 
 ;Code
 (defmacro esli (con q p)
-	(list 
+    (list 
         'cond
-		(list 
+        (list 
             con q
         )
-		(list 
+        (list 
             t p
         )
-	)
+    )
 )
 
 ;Test cases
@@ -73,21 +73,21 @@
 
 ;Code
 (defmacro fif (test n z p)
-	(list 
+    (list 
         'cond
-		(list 
+        (list 
             (list '< test 0)
             n
         )
-		(list 
+        (list 
             (list '= test 0)
             z
         )
-		(list
+        (list
             t
             p
         )
-	)
+    )
 )
 
 ;Test cases
