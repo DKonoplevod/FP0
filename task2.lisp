@@ -30,7 +30,7 @@
 
 ;Code
 (defun each (pred lst)
-    (null (member nil (mapcar pred lst)))
+    (eval (cons 'and (mapcar pred lst)))
 )
 
 ;Test cases
@@ -161,12 +161,12 @@
 
 ;Code
 (defun return-call ()
-   'return-call
+   '(return-call)
 )
 
 ;Test cases
 (print (return-call))
-(print (funcall (funcall (return-call))))
+(print (eval (eval (return-call))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
