@@ -4,7 +4,7 @@
 
 ;Code
 (defmacro return-macro-call ()
-    '(list 'return-macro-call)
+    `'(return-macro-call)
 )
 
 ;Test cases
@@ -19,18 +19,16 @@
 
 ;Code
 (defmacro popa (stack)
-    (list 'prog1
-        (list
-            'car stack
-        )
-        (list
-            'setq stack (list 'cdr stack)
-        )
+    `(prog1
+        (car ,stack)
+        (setq ,stack (cdr ,stack))
     )
 )
 
 ;Test cases
 (setq stuck '(a b c))
+(print (popa stuck))
+(print stuck)
 (print (popa stuck))
 (print stuck)
 (print (popa stuck))
@@ -43,14 +41,9 @@
 
 ;Code
 (defmacro esli (con q p)
-    (list 
-        'cond
-        (list 
-            con q
-        )
-        (list 
-            t p
-        )
+    `(cond
+        (,con ,q)
+        (,t ,p)
     )
 )
 
@@ -73,19 +66,15 @@
 
 ;Code
 (defmacro fif (test n z p)
-    (list 
-        'cond
-        (list 
-            (list '< test 0)
-            n
+    `(cond
+        ((< ,test 0)
+            ,n
         )
-        (list 
-            (list '= test 0)
-            z
+        ((= ,test 0)
+            ,z
         )
-        (list
-            t
-            p
+        (t
+            ,p
         )
     )
 )
