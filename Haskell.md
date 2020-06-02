@@ -22,17 +22,6 @@ Haskell - стандартизированный типизированный ф
 
 Haskell вычисляет значения только тогда, когда они необходимы, что позволяет очень просто работать с бесконечными структурами данных.
 
-### Официальная документация
-
-С полной документацией от разработчика можно ознакомиться по [ссылке](https://www.seas.upenn.edu/~cis194/spring13/lectures.html).
-
-Полезные ссылки:
-- [Официальный сайт Haskell](https://www.haskell.org/)
-- [Статься о том как использовать Haskell](http://learnyouahaskell.com/starting-out#ready-set-go)
-- [99 задач по Haskell](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems)
-- [Хорошая статья по Haskell на Хабре](https://habr.com/ru/post/152889/)
-- [Haskell на StackOverflow](https://stackoverflow.com/questions/tagged?tagnames=haskell)
-
 ### Плюсы и минусы языка
 
 Помимо общеизвестных преимуществ и недостатков всех функциональных языков программирования Haskell имеет свои.
@@ -116,3 +105,13 @@ Hello World!
 ```haskell
 f x y = x*x + y*y
 ```
+### Официальная документация
+
+С полной документацией от разработчика можно ознакомиться по [ссылке](https://www.seas.upenn.edu/~cis194/spring13/lectures.html).
+
+### Полезные ссылки
+- [Официальный сайт Haskell](https://www.haskell.org/)
+- [Статься о том как использовать Haskell](http://learnyouahaskell.com/starting-out#ready-set-go)
+- [99 задач по Haskell](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems)
+- [Хорошая статья по Haskell на Хабре](https://habr.com/ru/post/152889/)
+- [Haskell на StackOverflow](https://stackoverflow.com/questions/tagged?tagnames=haskell)
